@@ -1,4 +1,4 @@
-package net.goulden.tridentweathering;
+/*package net.goulden.tridentweathering;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -30,7 +30,7 @@ public class MakingRain {
 
                 Random random = new Random();
                 boolean trigger = random.nextBoolean();
-                if (trigger && TridentWeatheringHandler.rainTriggers > 1) {
+                if (trigger && TriggerValues.rainTriggers > 1) {
 
                     final boolean[] deactivate = {false};
                     Timer timer = new Timer();
@@ -40,10 +40,10 @@ public class MakingRain {
                         public void run() {
                             if (!deactivate[0]) {
                                 eventEntity.level().setRainLevel(0.5F);
-                                TridentWeatheringHandler.rainTriggers--;
+                                TriggerValues.rainTriggers--;
                                 deactivate[0] = true;
                             } else {
-                                TridentWeatheringHandler.rainTriggers = 3;
+                                TriggerValues.rainTriggers = 3;
                                 timer.cancel();
                             }
                         }
@@ -51,7 +51,7 @@ public class MakingRain {
                     };
                     timer.schedule(task, 0, 15000);
 
-                } else if (trigger && TridentWeatheringHandler.rainTriggers == 1) {
+                } else if (trigger && TriggerValues.rainTriggers == 1) {
 
                     serverLevel.setWeatherParameters(0, ServerLevel.RAIN_DURATION.sample(serverLevel.getRandom()) , true, false);
                     eventEntity.sendSystemMessage(Component.literal("Set the weather to rain"));
@@ -61,3 +61,5 @@ public class MakingRain {
         }
     }
 }// hacer config para cantidad de fake triggers y el tiempo para reiniciarlos
+
+ */
