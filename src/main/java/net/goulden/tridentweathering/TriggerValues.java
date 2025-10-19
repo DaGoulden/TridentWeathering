@@ -1,9 +1,8 @@
 package net.goulden.tridentweathering;
 
 public class TriggerValues {
-    // public static int rainTriggers = 3;
 
-    public static int zero = 0;
+    public static int actualTriggers = 0;
 
     public static int rainDelay = 3;
     public static int rainFakeTriggers = 2;
