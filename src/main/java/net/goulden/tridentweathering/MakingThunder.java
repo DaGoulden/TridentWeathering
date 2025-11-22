@@ -4,10 +4,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @EventBusSubscriber(modid = TridentWeathering.MODID)
 public class MakingThunder {
@@ -16,6 +21,7 @@ public class MakingThunder {
     private static final String TAG_ACTUAL_TRIGGERS = "TridentWeathering.ActualTriggers";
     private static final String TAG_THUNDERBOLTS_TRIGGERED = "TridentWeathering.ThunderboltsTriggered";
     private static final String TAG_CANCEL_WEATHERING = "TridentWeathering.Cancel";
+    private static final String TAG_GENERATED_BOLT = "TridentWeathering.GeneratedBolt";
 
     @SubscribeEvent
     public static void mainThundering(EntityTickEvent.Pre event) {
@@ -36,12 +42,12 @@ public class MakingThunder {
                 data.putInt(TAG_ACTUAL_TRIGGERS, data.getInt(TAG_ACTUAL_TRIGGERS) + 1);
             } else if (data.getInt(TAG_ACTUAL_TRIGGERS) < 5) {
                 data.putInt(TAG_ACTUAL_TRIGGERS, data.getInt(TAG_ACTUAL_TRIGGERS) + 1);
-                if (trident.level() instanceof ServerLevel serverLevel) {
-                    CleanLightningBolt bolt = new CleanLightningBolt(ModEntities.CLEAN_LIGHTNING_BOLT.get(), serverLevel);
-                    bolt.moveTo(trident.getX(), trident.getY(), trident.getZ());
+                LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(trident.level());
+                if (bolt != null) {
+                    bolt.setPos(trident.position());
                     bolt.setVisualOnly(true);
-                    bolt.setSilent(true);
-                    serverLevel.addFreshEntity(bolt);
+                    bolt.getPersistentData().putBoolean(TAG_GENERATED_BOLT, true);
+                    trident.level().addFreshEntity(bolt);
                 }
             } else if (data.getInt(TAG_ACTUAL_TRIGGERS) == 5) {
                 if (!(trident.level() instanceof ServerLevel serverLevel)) return;
@@ -50,6 +56,16 @@ public class MakingThunder {
             }
         }
 
+    }
+
+    @SubscribeEvent
+    public static void shortLightningBolt(EntityTickEvent.Pre event) {
+        if (event.getEntity().level().isClientSide()) return;
+        if (!(event.getEntity() instanceof LightningBolt bolt)) return;
+        if (!bolt.getPersistentData().getBoolean(TAG_GENERATED_BOLT)) return;
+        if (bolt.tickCount >= 1) {
+            bolt.discard();
+        }
     }
 
     @SubscribeEvent

@@ -30,7 +30,6 @@ public class TridentWeathering {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
-        ModEntities.register(modEventBus);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
