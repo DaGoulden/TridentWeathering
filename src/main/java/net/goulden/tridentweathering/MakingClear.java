@@ -1,4 +1,4 @@
-package net.goulden.tridentweathering;
+/*package net.goulden.tridentweathering;
 
 public class MakingClear {
-}
+}*/
