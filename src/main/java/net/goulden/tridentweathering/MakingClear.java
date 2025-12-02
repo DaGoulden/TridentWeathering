@@ -16,8 +16,7 @@ public class MakingClear {
     @SubscribeEvent
     public static void makeClear(EntityTickEvent.Post event) {
 
-        if (!(event.getEntity() instanceof AbstractArrow trident)) return;
-        if (!(trident instanceof ThrownTrident)) return;
+        if (!(event.getEntity() instanceof ThrownTrident trident)) return;
         if (trident.level().isClientSide) return;
         if (trident.tickCount >= 10 && trident.tickCount % delay != 0) return;
         if (!(trident.level().getBlockEntity(trident.getOnPos()) instanceof ConduitBlockEntity conduit)) return;
