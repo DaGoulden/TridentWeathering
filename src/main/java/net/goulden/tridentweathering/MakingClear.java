@@ -2,6 +2,7 @@ package net.goulden.tridentweathering;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.level.block.entity.ConduitBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -16,6 +17,7 @@ public class MakingClear {
     public static void makeClear(EntityTickEvent.Post event) {
 
         if (!(event.getEntity() instanceof AbstractArrow trident)) return;
+        if (!(trident instanceof ThrownTrident)) return;
         if (trident.level().isClientSide) return;
         if (trident.tickCount >= 10 && trident.tickCount % delay != 0) return;
         if (!(trident.level().getBlockEntity(trident.getOnPos()) instanceof ConduitBlockEntity conduit)) return;
