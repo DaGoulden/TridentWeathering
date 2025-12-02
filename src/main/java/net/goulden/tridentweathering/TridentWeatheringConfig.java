@@ -5,7 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class TridentWeatheringConfig {
 
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    static final ForgeConfigSpec SERVER_SPEC = BUILDER.build();
+    static final ForgeConfigSpec SPEC = BUILDER.build();
 
     protected static final ForgeConfigSpec.IntValue clearTriggerDelay = BUILDER
             .comment("Delay (in ticks) between triggers to clear the weather when the trident is in the conduit.")

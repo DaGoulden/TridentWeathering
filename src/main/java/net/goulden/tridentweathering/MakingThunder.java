@@ -1,21 +1,13 @@
 package net.goulden.tridentweathering;
 
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.projectile.ThrownTrident;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-import java.util.Objects;
-
-@Mod.EventBusSubscriber(modid = TridentWeathering.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MakingThunder {
 
     protected static int wait;
@@ -25,18 +17,16 @@ public class MakingThunder {
     private static final String TAG_ACTIVE = "TridentWeathering.Active";
     private static final String TAG_LIGHTNING_BOLTS_TRIGGERED = "TridentWeathering.LightningBoltsTriggered";
 
-    @SubscribeEvent
-    public static void makeThunder(EntityTickEvent.Pre event) {
+    public static void makeThunder(ThrownTrident trident) {
 
-        if (!(event.getEntity() instanceof ThrownTrident trident)) return;
         Level tLevel = trident.level();
         if (tLevel.isClientSide()) return;
         if (!(trident.tickCount % 10 == 1)) return;
         if (!(tLevel.isRainingAt(trident.blockPosition()))) return;
-        if (Objects.requireNonNull(
+        /*if (Objects.requireNonNull(
                 trident.getPickupItemStackOrigin().get(DataComponents.ENCHANTMENTS))
                     .getLevel(tLevel.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.CHANNELING))
-        < 1) return;
+        < 1) return;*/
 
         CompoundTag tData = trident.getPersistentData();
         if (trident.getXRot() > 85 && trident.tickCount == 1) {
@@ -65,9 +55,7 @@ public class MakingThunder {
         }
     }
 
-    @SubscribeEvent
-    private static void shortLightningBolt(EntityTickEvent.Pre event) {
-        if (!(event.getEntity() instanceof LightningBolt bolt)) return;
+    public static void shortLightningBolt(LightningBolt bolt) {
         if (bolt.level().isClientSide()) return;
         if (!bolt.getPersistentData().getBoolean(TAG_ACTIVE)) return;
         if (bolt.tickCount >= 1) {
@@ -75,10 +63,10 @@ public class MakingThunder {
         }
     }
 
-    @SubscribeEvent
-    private static void cancelThundering(ProjectileImpactEvent event) {
-        if (!(event.getProjectile() instanceof ThrownTrident trident)) return;
+    public static void cancelThundering(ThrownTrident trident) {
         if (trident.level().isClientSide()) return;
-        trident.getPersistentData().putBoolean(TAG_ACTIVE, false);
+        if (trident.isInWall() && trident.getPersistentData().getBoolean(TAG_ACTIVE)) {
+            trident.getPersistentData().putBoolean(TAG_ACTIVE, false);
+        }
     }
 }
