@@ -1,52 +1,34 @@
 package net.goulden.tridentweathering;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec;
 
 public class TridentWeatheringConfig {
 
-    public static final ModConfigSpec SERVER_SPEC;
-    public static final Server SERVER;
+    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    static final ForgeConfigSpec SERVER_SPEC = BUILDER.build();
 
-    static {
-        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
-        SERVER = new Server(builder);
-        SERVER_SPEC = builder.build();
-    }
+    protected static final ForgeConfigSpec.IntValue clearTriggerDelay = BUILDER
+            .comment("Delay (in ticks) between triggers to clear the weather when the trident is in the conduit.")
+            .defineInRange("clearTriggerDelay", 50, 1, 10000);
 
-    public static class Server {
+    protected static final ForgeConfigSpec.IntValue rainWaitTriggers = BUILDER
+            .comment("Wait (in seconds) before starting with the fake triggers.")
+            .defineInRange("rainWaitTriggers", 1, 0, Integer.MAX_VALUE);
 
-        protected final ModConfigSpec.IntValue clearTriggerDelay;
-        protected final ModConfigSpec.IntValue rainWaitTriggers;
-        protected final ModConfigSpec.IntValue rainFakeTriggers;
-        protected final ModConfigSpec.IntValue thunderWaitTriggers;
-        protected final ModConfigSpec.IntValue thunderBoltsNeeded;
-        protected final ModConfigSpec.DoubleValue thunderBoltProbability;
+    protected static final ForgeConfigSpec.IntValue rainFakeTriggers = BUILDER
+            .comment("Amount of fake triggers before making it rain.")
+            .defineInRange("rainFakeTriggers", 2, 0, Integer.MAX_VALUE);
 
-        Server(ModConfigSpec.Builder builder) {
+    protected static final ForgeConfigSpec.IntValue thunderWaitTriggers = BUILDER
+            .comment("Wait (in seconds) before starting with the lightning bolts triggers.")
+            .defineInRange("thunderWaitTriggers", 2, 0, Integer.MAX_VALUE);
 
-            clearTriggerDelay = builder
-                    .comment("Delay (in ticks) between triggers to clear the weather when the trident is in the conduit.")
-                    .defineInRange("clearTriggerDelay", 50, 1, 10000);
+    protected static final ForgeConfigSpec.IntValue thunderBoltsNeeded = BUILDER
+            .comment("Amount of lightning bolts that can strike and that are needed for making it thunder.")
+            .defineInRange("thunderBoltsNeeded", 3, 0, Integer.MAX_VALUE);
 
-            rainWaitTriggers = builder
-                    .comment("Wait (in seconds) before starting with the fake triggers.")
-                    .defineInRange("rainWaitTriggers", 1, 0, Integer.MAX_VALUE);
+    protected static final ForgeConfigSpec.DoubleValue thunderBoltProbability = BUILDER
+            .comment("Probability of striking a lightning bolt.")
+            .defineInRange("thunderBoltProbability", 0.85, 0, 1);
 
-            rainFakeTriggers = builder
-                    .comment("Amount of fake triggers before making it rain.")
-                    .defineInRange("rainFakeTriggers", 2, 0, Integer.MAX_VALUE);
-
-            thunderWaitTriggers = builder
-                    .comment("Wait (in seconds) before starting with the lightning bolts triggers.")
-                    .defineInRange("thunderWaitTriggers", 2, 0, Integer.MAX_VALUE);
-
-            thunderBoltsNeeded = builder
-                    .comment("Amount of lightning bolts that can strike and that are needed for making it thunder.")
-                    .defineInRange("thunderBoltsNeeded", 3, 0, Integer.MAX_VALUE);
-
-            thunderBoltProbability = builder
-                    .comment("Probability of striking a lightning bolt.")
-                    .defineInRange("thunderBoltProbability", 0.85, 0, 1);
-        }
-    }
 }

@@ -3,11 +3,10 @@ package net.goulden.tridentweathering;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.block.entity.ConduitBlockEntity;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-@EventBusSubscriber(modid = TridentWeathering.MODID)
+@Mod.EventBusSubscriber(modid = TridentWeathering.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MakingClear {
 
     protected static int delay;

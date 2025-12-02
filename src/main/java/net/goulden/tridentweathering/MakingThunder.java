@@ -9,14 +9,13 @@ import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
 
-@EventBusSubscriber(modid = TridentWeathering.MODID)
+@Mod.EventBusSubscriber(modid = TridentWeathering.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MakingThunder {
 
     protected static int wait;
