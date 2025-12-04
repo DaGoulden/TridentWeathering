@@ -69,4 +69,4 @@ public class MakingThunder {
             trident.getPersistentData().putBoolean(TAG_ACTIVE, false);
         }
     }
-}
+} //no funca, no hay rayos
