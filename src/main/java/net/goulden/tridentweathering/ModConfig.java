@@ -2,7 +2,7 @@ package net.goulden.tridentweathering;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class TridentWeatheringConfig {
+public class ModConfig {
 
     public static final ModConfigSpec SERVER_SPEC;
     public static final Server SERVER;

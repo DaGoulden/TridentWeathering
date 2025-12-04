@@ -1,7 +1,6 @@
 package net.goulden.tridentweathering;
 
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.level.block.entity.ConduitBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
