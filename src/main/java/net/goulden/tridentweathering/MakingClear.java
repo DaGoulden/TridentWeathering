@@ -10,7 +10,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 @EventBusSubscriber(modid = TridentWeathering.MODID)
 public class MakingClear {
 
-    protected static int delay;
+    public static int delay;
 
     @SubscribeEvent
     public static void makeClear(EntityTickEvent.Post event) {

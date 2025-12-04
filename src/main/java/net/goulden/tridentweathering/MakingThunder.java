@@ -19,9 +19,9 @@ import java.util.Objects;
 @EventBusSubscriber(modid = TridentWeathering.MODID)
 public class MakingThunder {
 
-    protected static int wait;
-    protected static int bolts;
-    protected static double probability;
+    public static int wait;
+    public static int bolts;
+    public static double probability;
 
     private static final String TAG_ACTIVE = "TridentWeathering.Active";
     private static final String TAG_LIGHTNING_BOLTS_TRIGGERED = "TridentWeathering.LightningBoltsTriggered";

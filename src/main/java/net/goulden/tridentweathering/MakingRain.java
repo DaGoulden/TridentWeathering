@@ -12,8 +12,8 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 @EventBusSubscriber(modid = TridentWeathering.MODID)
 public class MakingRain {
 
-    protected static int wait;
-    protected static int fakes;
+    public static int wait;
+    public static int fakes;
 
     @SubscribeEvent
     public static void makeRain(LivingEntityUseItemEvent.Tick event) {

@@ -1,8 +1,12 @@
 package net.goulden.tridentweathering;
 
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class ModConfig {
+@EventBusSubscriber(modid = TridentWeathering.MODID)
+public class TridentWeatheringConfig {
 
     public static final ModConfigSpec SERVER_SPEC;
     public static final Server SERVER;
@@ -15,12 +19,12 @@ public class ModConfig {
 
     public static class Server {
 
-        protected final ModConfigSpec.IntValue clearTriggerDelay;
-        protected final ModConfigSpec.IntValue rainWaitTriggers;
-        protected final ModConfigSpec.IntValue rainFakeTriggers;
-        protected final ModConfigSpec.IntValue thunderWaitTriggers;
-        protected final ModConfigSpec.IntValue thunderBoltsNeeded;
-        protected final ModConfigSpec.DoubleValue thunderBoltProbability;
+        private final ModConfigSpec.IntValue clearTriggerDelay;
+        private final ModConfigSpec.IntValue rainWaitTriggers;
+        private final ModConfigSpec.IntValue rainFakeTriggers;
+        private final ModConfigSpec.IntValue thunderWaitTriggers;
+        private final ModConfigSpec.IntValue thunderBoltsNeeded;
+        private final ModConfigSpec.DoubleValue thunderBoltProbability;
 
         Server(ModConfigSpec.Builder builder) {
 
@@ -48,5 +52,23 @@ public class ModConfig {
                     .comment("Probability of striking a lightning bolt.")
                     .defineInRange("thunderBoltProbability", 0.85, 0, 1);
         }
+    }
+
+    @SubscribeEvent
+    public static void configLoading(ModConfigEvent.Loading event) {
+        refreshConfig();
+    }
+    @SubscribeEvent
+    public static void configReloading(ModConfigEvent.Reloading event) {
+        refreshConfig();
+    }
+
+    private static void refreshConfig() {
+        MakingClear.delay = SERVER.clearTriggerDelay.get();
+        MakingRain.wait = SERVER.rainWaitTriggers.get();
+        MakingRain.fakes = SERVER.rainFakeTriggers.get();
+        MakingThunder.wait = SERVER.thunderWaitTriggers.get();
+        MakingThunder.bolts = SERVER.thunderBoltsNeeded.get();
+        MakingThunder.probability = SERVER.thunderBoltProbability.get();
     }
 }
