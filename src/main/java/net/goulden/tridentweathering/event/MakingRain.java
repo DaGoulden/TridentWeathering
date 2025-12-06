@@ -1,5 +1,6 @@
-package net.goulden.tridentweathering;
+package net.goulden.tridentweathering.event;
 
+import net.goulden.tridentweathering.TridentWeathering;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

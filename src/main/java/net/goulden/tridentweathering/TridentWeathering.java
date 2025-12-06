@@ -1,5 +1,6 @@
 package net.goulden.tridentweathering;
 
+import net.goulden.tridentweathering.config.ConfigBuilder;
 import net.neoforged.fml.ModContainer;
 
 import net.neoforged.fml.common.Mod;
@@ -12,7 +13,7 @@ public class TridentWeathering {
 
     public TridentWeathering(ModContainer modContainer) {
 
-        modContainer.registerConfig(ModConfig.Type.SERVER, TridentWeatheringConfig.SERVER_SPEC);
+        modContainer.registerConfig(ModConfig.Type.SERVER, ConfigBuilder.SERVER_SPEC);
 
     }
 }

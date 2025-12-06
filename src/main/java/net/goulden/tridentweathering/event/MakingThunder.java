@@ -1,5 +1,6 @@
-package net.goulden.tridentweathering;
+package net.goulden.tridentweathering.event;
 
+import net.goulden.tridentweathering.TridentWeathering;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;

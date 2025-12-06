@@ -1,5 +1,6 @@
-package net.goulden.tridentweathering;
+package net.goulden.tridentweathering.event;
 
+import net.goulden.tridentweathering.TridentWeathering;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.level.block.entity.ConduitBlockEntity;
