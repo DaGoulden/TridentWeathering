@@ -21,12 +21,12 @@ public class MakingRain {
 
         if (!(event.getItem().getItem() == Items.TRIDENT)) return;
         Entity entity = event.getEntity();
-        if (entity.level().isClientSide) return;
+        if (entity.level().isClientSide()) return;
         if (!(event.getDuration() % 20 == 0)) return;
         if (!(entity.getXRot() <= -80)) return;
         if (entity.level().isRaining()) return;
         BlockPos pos = entity.blockPosition();
-        if (entity.level().getBiome(pos).value().getPrecipitationAt(pos) == Biome.Precipitation.NONE) return;
+        if (entity.level().getBiome(pos).value().getPrecipitationAt(pos, entity.level().getSeaLevel()) == Biome.Precipitation.NONE) return;
 
         int triggers = (72000 - event.getDuration()) / 20;
         if (triggers > wait && triggers <= wait + fakes) {
